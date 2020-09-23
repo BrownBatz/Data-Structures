@@ -27,7 +27,18 @@ class DoublyLinkedList:
     the old head node's previous pointer accordingly.
     """
     def add_to_head(self, value):
-        pass
+        newNode = ListNode(value)
+
+        if self.head is not None and self.tail is not None:
+            self.head = newNode
+            self.length += 1
+            return
+        else:
+            newNode.next = self.head
+            self.head.prev = newNode
+            self.head = newNode
+            self.length += 1
+            return
         
     """
     Removes the List's current head node, making the
@@ -35,7 +46,14 @@ class DoublyLinkedList:
     Returns the value of the removed Node.
     """
     def remove_from_head(self):
-        pass
+        if self.head is None and self.tail is None:
+            return
+        else:
+            newHead = self.head.next
+            self.head = newHead
+            newHead.prev = None
+            self.length = self.length - 1
+            return
             
     """
     Wraps the given value in a ListNode and inserts it 
@@ -43,7 +61,18 @@ class DoublyLinkedList:
     the old tail node's next pointer accordingly.
     """
     def add_to_tail(self, value):
-        pass
+        newNode = ListNode(value)
+        if self.head is None and self.tail is None:
+            self.head = newNode
+            self.tail = newNode
+            self.length = self.length + 1
+            return
+        else:
+            oldTail = self.tail
+            oldTail.next = newNode
+            self.tail = newNode
+            self.length = self.length + 1
+            return
             
     """
     Removes the List's current tail node, making the 
@@ -51,32 +80,97 @@ class DoublyLinkedList:
     Returns the value of the removed Node.
     """
     def remove_from_tail(self):
-        pass
+        if self.head is None and self.tail is None:
+            return
+        else:
+            oldTail = self.tail
+            newTail = self.tail.next
+            newTail.next = None
+            self.tail = newTail
+            return
             
     """
     Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List.
     """
     def move_to_front(self, node):
-        pass
+        if self.head is None and self.tail is None:
+            return
+        
+        rightRef = node.next
+        leftRef = node.prev
+
+        leftRef.next = rightRef
+        righRef.prev = leftRef
+
+        node.next = None
+        node.prev = None
+
+        oldHead = self.head
+        oldHeadprev = node
+
+        self.head = node
+        self.head.next = oldHead
+        return
         
     """
     Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List.
     """
     def move_to_end(self, node):
-        pass
+        if self.head is None and self.tail is None:
+            return
+        
+        rightRef = node.next
+        leftRef = node.prev
+
+        leftRef.next = rightRef
+        rightRef.prev = leftRef
+
+        node.next = None
+        node.prev = None
+
+        oldTail = self.tail
+        oldTail.next = node
+
+        self.tail = node
+        self.tail.prev = oldTail
+        return
 
     """
     Deletes the input node from the List, preserving the 
     order of the other elements of the List.
     """
     def delete(self, node):
-        pass
+        if self.head is None and self.tail is None:
+            return
+        
+        rightRef = node.next
+        leftRef = node.prev
+        
+        leftRef.next = rightRef
+        rightRef.prev = leftRef
+
+        node.next = None
+        node.prev = None
+
+        node = None
+        return
 
     """
     Finds and returns the maximum value of all the nodes 
     in the List.
     """
     def get_max(self):
-        pass
+        current = self.head
+        currentMax = current.value
+        while(current.next is not None):
+            nextNode = current.next
+            if (nextNode.value > currentMax):
+                currentMax = nextNode.value
+                current = nextNode
+                continue
+            else:
+                current = nextNode
+                continue
+        return currentMax
