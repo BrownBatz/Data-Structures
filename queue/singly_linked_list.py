@@ -39,7 +39,7 @@ class LinkedList:
         self.tail = None
 
     def add_to_tail(self, value):
-        # wrap the value in a new Node
+        # wrap the value in a new Node singly_linked_list import
         new_node = Node(value)
         # check if the linked list is empty
         if self.head is None and self.tail is None:
