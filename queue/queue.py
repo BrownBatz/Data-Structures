@@ -32,7 +32,7 @@ Stretch: What if you could only use instances of your Stack class to implement t
 #             self.size -= 1
 #             return self.storage.pop(0)
 
-# with linked list
+# # with linked list
 from singly_linked_list import LinkedList
 
 class Queue:

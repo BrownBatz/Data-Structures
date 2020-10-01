@@ -29,8 +29,9 @@ class DoublyLinkedList:
     def add_to_head(self, value):
         newNode = ListNode(value)
 
-        if self.head is not None and self.tail is not None:
+        if self.head is None and self.tail is None:
             self.head = newNode
+            self.tail = newNode
             self.length += 1
             return
         else:
@@ -82,12 +83,19 @@ class DoublyLinkedList:
     def remove_from_tail(self):
         if self.head is None and self.tail is None:
             return
+        elif self.length == 1:
+            oldTail = self.tail
+            self.head = None
+            self.tail = None
+            self.length -= 1
+            return oldTail.value
         else:
             oldTail = self.tail
-            newTail = self.tail.next
+            newTail = self.tail.prev
             newTail.next = None
             self.tail = newTail
-            return
+            self.length -= 1
+            return oldTail.value
             
     """
     Removes the input node from its current spot in the 
